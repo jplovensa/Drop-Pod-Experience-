@@ -70,6 +70,7 @@ document.querySelector("#download-review").addEventListener("click", () => {
   const content = [
     "FJÄLL GROUP — Drop Pod Villas",
     "Development design brief",
+    `Exterior finish: ${document.querySelector("#finish-title").textContent}`,
     "",
     `Material preference: ${palettes[review.palette] || "Not selected"}`,
     `Review focus: ${topicInput.value}`,

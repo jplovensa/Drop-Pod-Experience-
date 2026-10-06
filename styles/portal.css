@@ -148,7 +148,7 @@ p {
 }
 h1,
 h2 {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: Inter, Arial, sans-serif;
   font-weight: 400;
   letter-spacing: -0.035em;
 }
@@ -631,8 +631,9 @@ button[aria-pressed="true"] {
 }
 .scale-stat strong {
   font:
-    42px Georgia,
-    serif;
+    500 42px Inter,
+    Arial,
+    sans-serif;
 }
 .scale-stat span {
   font-size: 12px;
@@ -745,5 +746,238 @@ dialog::backdrop {
   }
   dialog {
     padding: 20px;
+  }
+}
+.exterior-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(250px, 1fr);
+  gap: 28px;
+}
+.exterior-viewport {
+  position: relative;
+  height: 460px;
+  background: #dce5e2;
+  border-radius: 6px;
+  overflow: hidden;
+  touch-action: none;
+}
+.exterior-viewport canvas,
+#walk-viewport canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.viewport-hint {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  font-size: 11px;
+  pointer-events: none;
+  color: #29473c;
+}
+.renderer-loading {
+  padding: 24px;
+}
+.finish-panel {
+  padding: 26px;
+  background: #eeefe7;
+  border-radius: 6px;
+}
+.finish-panel p {
+  font-size: 13px;
+  color: var(--muted);
+}
+.exterior-swatches {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 24px 0;
+}
+.exterior-swatches button {
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 10px;
+  text-align: left;
+  font-size: 11px;
+  color: var(--ink);
+}
+.exterior-swatches button[aria-pressed="true"] {
+  border: 2px solid var(--green);
+  background: #dfe7d8;
+  padding: 9px;
+}
+.exterior-swatches i {
+  display: block;
+  height: 45px;
+  border-radius: 3px;
+  margin-bottom: 8px;
+}
+.spatial-invite {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  justify-content: space-between;
+}
+.spatial-invite p {
+  max-width: 50ch;
+  font-size: 14px;
+  color: var(--muted);
+}
+#walk-modal {
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  background: #172c27;
+  color: white;
+  overflow: hidden;
+}
+#walk-viewport {
+  position: absolute;
+  inset: 0;
+  touch-action: none;
+  outline: none;
+}
+.walk-top,
+.walk-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px 32px;
+  pointer-events: none;
+}
+.walk-top {
+  top: 0;
+  background: linear-gradient(#10231dcc, transparent);
+}
+.walk-top .eyebrow {
+  font-size: 9px;
+  margin-bottom: 8px;
+}
+.walk-top h2 {
+  font-size: 22px;
+  letter-spacing: -0.03em;
+}
+.walk-top button,
+.walk-bottom button,
+.walk-bottom select {
+  pointer-events: auto;
+  color: white;
+  background: #203b33d9;
+  border: 1px solid #ffffff40;
+  border-radius: 5px;
+  padding: 10px 14px;
+  font-size: 12px;
+}
+.walk-top button {
+  width: 44px;
+  height: 44px;
+  font-size: 24px;
+}
+.walk-bottom {
+  bottom: 22px;
+  align-items: end;
+  background: linear-gradient(transparent, #10231dcc);
+}
+.walk-bottom p {
+  font-size: 11px;
+  margin: 6px 0 0;
+  color: #d7e3dc;
+}
+.walk-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.walk-bottom select {
+  width: auto;
+  margin: 0;
+}
+.walk-reticle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  pointer-events: none;
+  opacity: 0.55;
+  transform: translate(-50%, -50%);
+}
+.walk-disclaimer {
+  position: absolute;
+  bottom: 8px;
+  left: 32px;
+  font-size: 9px;
+  color: #c2d0c7;
+  pointer-events: none;
+}
+.touch-walk {
+  position: absolute;
+  bottom: 150px;
+  right: 24px;
+  text-align: center;
+  z-index: 3;
+}
+.touch-walk button {
+  width: 42px;
+  height: 42px;
+  margin: 2px;
+  border-radius: 5px;
+  border: 1px solid #ffffff50;
+  color: white;
+  background: #203b33b0;
+  font-size: 18px;
+  touch-action: none;
+}
+@media (min-width: 900px) and (pointer: fine) {
+  .touch-walk {
+    display: none;
+  }
+}
+@media (max-width: 760px) {
+  .exterior-layout {
+    grid-template-columns: 1fr;
+  }
+  .exterior-viewport {
+    height: 340px;
+  }
+  .spatial-invite {
+    flex-direction: column;
+    align-items: start;
+  }
+  .walk-top,
+  .walk-bottom {
+    padding: 18px;
+  }
+  .walk-top h2 {
+    font-size: 18px;
+  }
+  .walk-bottom {
+    flex-direction: column;
+    align-items: start;
+    gap: 16px;
+  }
+  .walk-actions {
+    flex-wrap: wrap;
+  }
+  .walk-actions button,
+  .walk-actions select {
+    font-size: 10px;
+    padding: 8px;
+  }
+  .walk-disclaimer {
+    left: 18px;
+  }
+  .walk-bottom p {
+    max-width: 30ch;
+  }
+  .touch-walk {
+    bottom: 190px;
   }
 }

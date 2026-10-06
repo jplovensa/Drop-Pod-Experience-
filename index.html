@@ -3,10 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles/fonts.css" />
     <title>FJÄLL — Client Portal</title>
     <link rel="stylesheet" href="styles/portal.css" />
     <script src="scripts/portal.js" defer></script>
     <script src="scripts/showcase.js" defer></script>
+    <script type="module" src="scripts/spatial.js"></script>
   </head>
   <body>
     <aside class="sidebar">
@@ -17,6 +19,8 @@
       <nav aria-label="Showcase journey">
         <a href="#overview">01 <span>Signature architecture</span></a
         ><a href="#materials">02 <span>Material palettes</span></a
+        ><a href="#exterior">+ <span>Exterior finishes</span></a
+        ><a href="#spatial">+ <span>First-person walkthrough</span></a
         ><a href="#ambiance">03 <span>Ambiance studio</span></a
         ><a href="#scale">04 <span>Development scale</span></a
         ><a href="#resources">05 <span>Design library</span></a
@@ -62,7 +66,7 @@
               language from one villa to an entire collection.
             </p>
             <a class="button light" href="experience.html"
-              >Explore your villa <span aria-hidden="true">→</span></a
+              >Cinematic walkthrough <span aria-hidden="true">→</span></a
             >
           </div>
           <span class="hero-label"
@@ -143,6 +147,64 @@
         <p id="preference-status" class="status" role="status">
           No palette selected yet.
         </p>
+      </section>
+      <section id="exterior" class="section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Signature shell / Finish studio</p>
+            <h2>A material changes everything.</h2>
+          </div>
+          <p>
+            Rotate the concept pod and try exterior finishes on its curved
+            shell. Carry your selection into the first-person walkthrough.
+          </p>
+        </div>
+        <div class="exterior-layout">
+          <div
+            id="exterior-viewport"
+            class="exterior-viewport"
+            aria-label="Interactive exterior concept model"
+          >
+            <p class="renderer-loading">Loading the finish studio…</p>
+            <span class="viewport-hint">Drag to orbit · Scroll to zoom</span>
+          </div>
+          <div class="finish-panel">
+            <p class="eyebrow">Exterior finish</p>
+            <h3 id="finish-title">Mineral Chalk</h3>
+            <p id="finish-description">
+              A soft mineral tone with a matte surface.
+            </p>
+            <div
+              id="exterior-swatches"
+              class="exterior-swatches"
+              role="group"
+              aria-label="Choose exterior finish"
+            ></div>
+            <p class="status">
+              Concept finish simulation on a simplified 3D shell. Color and
+              texture are indicative.
+            </p>
+            <button class="button" data-open-walk>
+              Enter first-person walkthrough →
+            </button>
+          </div>
+        </div>
+      </section>
+      <section id="spatial" class="section spatial-invite">
+        <div>
+          <p class="eyebrow">Walk the architecture</p>
+          <h2>From observer to explorer.</h2>
+          <p>
+            Move from the veranda into the suite, look around at eye level, and
+            change the shell finish as you explore.
+          </p>
+        </div>
+        <div>
+          <button class="button" data-open-walk>
+            Launch immersive walkthrough →
+          </button>
+          <p class="status">Live 3D concept · Keyboard, mouse & touch</p>
+        </div>
       </section>
       <section id="ambiance" class="section">
         <div class="section-heading">
@@ -337,6 +399,43 @@
         <button id="close-modal" aria-label="Close design detail">×</button>
       </div>
       <div id="modal-content"></div>
+    </dialog>
+    <dialog id="walk-modal" aria-labelledby="walk-title">
+      <div class="walk-top">
+        <div>
+          <span class="eyebrow">FJÄLL / Real-time concept experience</span>
+          <h2 id="walk-title">Inside the signature.</h2>
+        </div>
+        <button id="close-walk" aria-label="Exit walkthrough">×</button>
+      </div>
+      <div
+        id="walk-viewport"
+        tabindex="0"
+        aria-label="First-person 3D walkthrough. Use W A S D to move and drag to look around."
+      ></div>
+      <div class="walk-reticle" aria-hidden="true">+</div>
+      <div class="walk-bottom">
+        <div>
+          <span id="walk-location" role="status">Veranda</span>
+          <p>W A S D / arrows to move · Drag to look · Escape to exit</p>
+        </div>
+        <div class="walk-actions">
+          <select id="walk-finish" aria-label="Exterior finish"></select
+          ><button id="reset-walk">Reset view</button
+          ><button id="capture-walk">Save view ↓</button>
+        </div>
+      </div>
+      <div class="touch-walk" role="group" aria-label="Movement controls">
+        <button data-move="forward" aria-label="Move forward">↑</button>
+        <div>
+          <button data-move="left" aria-label="Move left">←</button
+          ><button data-move="backward" aria-label="Move backward">↓</button
+          ><button data-move="right" aria-label="Move right">→</button>
+        </div>
+      </div>
+      <span class="walk-disclaimer"
+        >Interactive architectural study · Simplified concept geometry</span
+      >
     </dialog>
   </body>
 </html>
