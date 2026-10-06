@@ -9,7 +9,6 @@
     <script src="scripts/portal.js" defer></script>
     <script src="scripts/showcase.js" defer></script>
     <script type="module" src="scripts/spatial.js"></script>
-    <script src="scripts/rendered-tour.js" defer></script>
   </head>
   <body>
     <aside class="sidebar">
@@ -21,7 +20,7 @@
         <a href="#overview">01 <span>Signature architecture</span></a
         ><a href="#materials">02 <span>Material palettes</span></a
         ><a href="#exterior">+ <span>Exterior finishes</span></a
-        ><a href="#spatial">+ <span>Rendered walkthrough</span></a
+        ><a href="#spatial">+ <span>Live walkthrough</span></a
         ><a href="#ambiance">03 <span>Ambiance studio</span></a
         ><a href="#scale">04 <span>Development scale</span></a
         ><a href="#resources">05 <span>Design library</span></a
@@ -157,8 +156,8 @@
           </div>
           <p>
             Rotate the concept pod and try exterior finishes on its curved
-            shell. Explore the finish on the concept shell, then open the
-            rendered tour.
+            shell. Explore the finish on the concept shell, then open the live
+            walkthrough.
           </p>
         </div>
         <div class="exterior-layout">
@@ -183,11 +182,11 @@
               aria-label="Choose exterior finish"
             ></div>
             <p class="status">
-              Concept finish simulation on a simplified 3D shell. Color and
-              texture are indicative.
+              Reference-derived shell geometry. Color and texture previews are
+              indicative; final geometry requires the production model.
             </p>
             <button class="button" data-open-walk>
-              Enter rendered walkthrough →
+              Enter live walkthrough →
             </button>
           </div>
         </div>
@@ -197,8 +196,9 @@
           <p class="eyebrow">Walk the architecture</p>
           <h2>From observer to explorer.</h2>
           <p>
-            Follow the rendered journey from the veranda into the suite, then
-            explore the spaces and compare the two material worlds.
+            Walk from the veranda into the suite at eye level. Explore the
+            curved architecture, compare interior palettes, and try exterior
+            finishes.
           </p>
         </div>
         <div>
@@ -206,7 +206,7 @@
             Launch immersive walkthrough →
           </button>
           <p class="status">
-            Rendered scenes · Cinematic transitions · Two palettes
+            Real-time 3D · First-person exploration · Two palettes
           </p>
         </div>
       </section>
@@ -407,7 +407,7 @@
     <dialog id="walk-modal" aria-labelledby="walk-title">
       <div class="walk-top">
         <div>
-          <span class="eyebrow">FJÄLL / Rendered architecture tour</span>
+          <span class="eyebrow">FJÄLL / Live architectural experience</span>
           <h2 id="walk-title">Inside the signature.</h2>
         </div>
         <button id="close-walk" aria-label="Exit walkthrough">×</button>
@@ -415,33 +415,40 @@
       <div
         id="walk-viewport"
         tabindex="0"
-        aria-label="Rendered scene walkthrough"
+        aria-label="First-person architectural walkthrough. Use WASD or arrows to move and drag to look."
       ></div>
+      <div class="walk-reticle" aria-hidden="true">+</div>
       <div
         class="tour-scene-nav"
         id="tour-scenes"
         role="group"
-        aria-label="Choose a rendered scene"
+        aria-label="Jump to a viewpoint"
       ></div>
       <div class="walk-bottom">
         <div>
-          <span id="walk-location" role="status">Arrival</span>
-          <p id="tour-hint">
-            Select a scene · Arrow keys to navigate · Escape to exit
-          </p>
+          <span id="walk-location" role="status">Veranda</span>
+          <p>WASD / arrows to move · Drag to look · Escape to exit</p>
         </div>
         <div class="walk-actions">
-          <select id="tour-palette" aria-label="Material palette">
+          <select id="walk-finish" aria-label="Exterior finish"></select
+          ><select id="tour-palette" aria-label="Interior palette">
             <option value="med">Mediterranean</option>
             <option value="wo">Warm Organic</option></select
-          ><button id="tour-prev" aria-label="Previous scene">←</button
-          ><button id="tour-next" aria-label="Next scene">Next space →</button
-          ><button id="tour-play">Pause film</button
-          ><button id="capture-walk">Download scene ↓</button>
+          ><button id="reset-walk">Reset view</button
+          ><button id="capture-walk">Save view ↓</button>
+        </div>
+      </div>
+      <div class="touch-walk" role="group" aria-label="Movement controls">
+        <button data-move="forward" aria-label="Move forward">↑</button>
+        <div>
+          <button data-move="left" aria-label="Move left">←</button
+          ><button data-move="backward" aria-label="Move backward">↓</button
+          ><button data-move="right" aria-label="Move right">→</button>
         </div>
       </div>
       <span class="walk-disclaimer"
-        >Pre-rendered concept imagery · Scene-based exploration</span
+        >Reference-derived architectural study · Geometry and dimensions are
+        indicative</span
       >
     </dialog>
   </body>
