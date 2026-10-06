@@ -69,10 +69,13 @@ noteInput.addEventListener("input", () => noteInput.setCustomValidity(""));
 document.querySelector("#download-review").addEventListener("click", () => {
   const content = [
     "FJÄLL GROUP — Drop Pod Villas",
-    "Client concept review",
+    "Development design brief",
     "",
     `Material preference: ${palettes[review.palette] || "Not selected"}`,
     `Review focus: ${topicInput.value}`,
+    `Ambiance: ${document.querySelector("#ambiance-title").textContent}`,
+    `Development: ${document.querySelector("#pod-count").value} pods · ${document.querySelector("#site-layout").selectedOptions[0].textContent} · ${document.querySelector("#pod-spacing").value} spacing`,
+    "Development arrangement is an illustrative concept, not a dimensioned site plan.",
     "",
     "Notes:",
     noteInput.value.trim() || "No notes entered.",

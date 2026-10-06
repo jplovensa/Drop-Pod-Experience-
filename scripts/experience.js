@@ -1,11 +1,11 @@
 const SCENES = [
   {
-    key: "sumba",
-    title: "The Sumba Masterplan",
+    key: "destination",
+    title: "The Destination Collection",
     dur: 12000,
-    video: "assets/sumba-resort.mp4",
-    poster: "assets/sumba-resort.jpg",
-    desc: "One hundred Drop Pods along the Waingapu shoreline, East Sumba — phase one of a five-hundred-unit programme.",
+    video: "assets/destination-collection.mp4",
+    poster: "assets/destination-collection.jpg",
+    desc: "A signature architectural language repeated across a destination — explore the possibilities of a modular villa collection.",
   },
   {
     key: "beach",

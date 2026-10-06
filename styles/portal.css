@@ -512,3 +512,238 @@ footer {
     transition: none !important;
   }
 }
+/* The presentation studio shares the portal's material language. */
+.studio-preview {
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #253b35;
+}
+.studio-preview img {
+  width: 100%;
+  max-height: 560px;
+  object-fit: cover;
+  display: block;
+  transition: filter 0.5s;
+}
+.studio-preview[data-mood="golden"] img {
+  filter: sepia(0.3) saturate(1.3) brightness(0.92);
+}
+.studio-preview[data-mood="evening"] img {
+  filter: brightness(0.55) saturate(0.8) sepia(0.2);
+}
+.studio-caption {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 48px 28px 20px;
+  color: white;
+  background: linear-gradient(transparent, #102b25b0);
+}
+.studio-caption h3 {
+  margin: 0;
+}
+.studio-controls {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+}
+fieldset {
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+legend {
+  font-size: 11px;
+  margin-bottom: 10px;
+  color: var(--muted);
+}
+.studio-controls button,
+.library-filters button,
+.scale-presets button {
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ink);
+  padding: 10px 14px;
+  font-size: 12px;
+  margin: 0 4px 6px 0;
+}
+button[aria-pressed="true"] {
+  background: var(--green);
+  color: white;
+  border-color: var(--green);
+}
+.scale-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr);
+  gap: 28px;
+}
+.scale-plan {
+  background: #e5eadd;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.scale-plan svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.plan-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 18px;
+  font-size: 10px;
+  color: var(--muted);
+}
+.scale-controls {
+  padding: 24px;
+  background: #eeefe7;
+  border-radius: 6px;
+}
+.scale-controls label {
+  display: block;
+  font-size: 12px;
+  margin: 18px 0 8px;
+}
+.scale-controls output {
+  float: right;
+  font-weight: 600;
+}
+.scale-controls input {
+  width: 100%;
+  accent-color: var(--green);
+  margin-bottom: 16px;
+}
+.scale-controls select {
+  margin-bottom: 0;
+}
+.scale-presets {
+  display: flex;
+}
+.scale-stat {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin: 22px 0;
+}
+.scale-stat strong {
+  font:
+    42px Georgia,
+    serif;
+}
+.scale-stat span {
+  font-size: 12px;
+  color: var(--muted);
+}
+.library-filters {
+  margin-bottom: 20px;
+}
+.design-library {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.library-card {
+  text-align: left;
+  padding: 0;
+  border: 1px solid var(--line);
+  background: #fafaf6;
+  color: var(--ink);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.library-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.4;
+  object-fit: cover;
+  transition: transform 0.4s;
+}
+.library-card:hover img {
+  transform: scale(1.03);
+}
+.library-card span {
+  display: block;
+  padding: 16px 18px;
+  font-size: 14px;
+}
+dialog {
+  width: min(880px, calc(100% - 32px));
+  max-height: 90vh;
+  border: 0;
+  border-radius: 8px;
+  padding: 28px;
+  background: var(--paper);
+  color: var(--ink);
+}
+dialog::backdrop {
+  background: #102b25c0;
+  backdrop-filter: blur(5px);
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-header button {
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  color: var(--ink);
+}
+#modal-content > img {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin: 20px 0;
+}
+#modal-content h2 {
+  margin-top: 20px;
+}
+#modal-content p {
+  max-width: 65ch;
+  color: var(--muted);
+}
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 24px 0;
+}
+.swatch i {
+  display: block;
+  height: 56px;
+  border: 1px solid #0001;
+  border-radius: 4px;
+}
+.swatch span {
+  font-size: 11px;
+  display: block;
+  margin-top: 8px;
+}
+@media (max-width: 1000px) {
+  .scale-layout {
+    grid-template-columns: 1fr;
+  }
+  .design-library {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 500px) {
+  .design-library {
+    grid-template-columns: 1fr;
+  }
+  .swatches {
+    grid-template-columns: 1fr 1fr;
+  }
+  dialog {
+    padding: 20px;
+  }
+}

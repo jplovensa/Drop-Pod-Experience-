@@ -6,39 +6,47 @@
     <title>FJÄLL — Client Portal</title>
     <link rel="stylesheet" href="styles/portal.css" />
     <script src="scripts/portal.js" defer></script>
+    <script src="scripts/showcase.js" defer></script>
   </head>
   <body>
     <aside class="sidebar">
       <a class="brand" href="index.html"
         ><img src="assets/fjall-logo.png" alt="FJÄLL Group"
       /></a>
-      <p class="eyebrow">Your project workspace</p>
-      <nav aria-label="Project navigation">
-        <a href="#overview">01 <span>Overview</span></a>
-        <a href="#materials">02 <span>Material selection</span></a>
-        <a href="#review">03 <span>Project review</span></a>
-        <a href="#resources">04 <span>Resources</span></a>
+      <p class="eyebrow">Development showcase</p>
+      <nav aria-label="Showcase journey">
+        <a href="#overview">01 <span>Signature architecture</span></a
+        ><a href="#materials">02 <span>Material palettes</span></a
+        ><a href="#ambiance">03 <span>Ambiance studio</span></a
+        ><a href="#scale">04 <span>Development scale</span></a
+        ><a href="#resources">05 <span>Design library</span></a
+        ><a href="#review">06 <span>Your design brief</span></a>
       </nav>
       <div class="sidebar-bottom">
-        <span class="dot"></span> Concept review<br /><small
-          >Drop Pod Villas · Sumba</small
+        <span class="dot"></span> Signature collection<br /><small
+          >Signature modular architecture</small
         >
       </div>
     </aside>
     <main>
       <header class="topbar">
-        <span>Drop Pod Villas <span class="muted">/ Client portal</span></span
+        <span
+          >Drop Pod Villas
+          <span class="muted">/ Development showcase</span></span
         ><span class="pill">Concept stage</span>
       </header>
       <section id="overview" class="section">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">A place to bring your vision together</p>
-            <h1>Your next chapter,<br />beautifully considered.</h1>
+            <p class="eyebrow">
+              Signature architecture · Development possibilities
+            </p>
+            <h1>A signature for<br />every destination.</h1>
           </div>
           <p class="intro-copy">
-            Explore your villa, compare finishes, and keep your feedback in one
-            place. Welcome to your Drop Pod project.
+            Explore a distinctive architectural system, try on its material
+            worlds, and imagine a collection at the scale of your next
+            development.
           </p>
         </div>
         <div class="hero">
@@ -47,11 +55,11 @@
             alt="Sculpted beachfront Drop Pod villa with an open veranda"
           />
           <div class="hero-content">
-            <span class="eyebrow">Sumba · Indonesia</span>
+            <span class="eyebrow">One signature · Many destinations</span>
             <h2>Small footprint.<br />Extraordinary possibilities.</h2>
             <p>
-              Step inside the architecture, from the shoreline to the sleeping
-              suite.
+              A sculpted shell. A continuous living space. A consistent design
+              language from one villa to an entire collection.
             </p>
             <a class="button light" href="experience.html"
               >Explore your villa <span aria-hidden="true">→</span></a
@@ -67,11 +75,11 @@
           </div>
           <div>
             <span class="eyebrow">Current stage</span
-            ><strong>Concept & materials</strong>
+            ><strong>Architecture · Atmosphere · Scale</strong>
           </div>
           <div>
             <span class="eyebrow">Next step</span
-            ><strong>Share your design feedback</strong>
+            ><strong>Explore a development scenario</strong>
           </div>
         </div>
       </section>
@@ -103,7 +111,9 @@
               <div class="card-actions">
                 <button data-select="med" aria-pressed="false">
                   Save preference</button
-                ><a href="experience.html?style=med">Explore palette →</a>
+                ><button class="text-button" data-palette="med">
+                  View palette →
+                </button>
               </div>
             </div>
           </article>
@@ -123,7 +133,9 @@
               <div class="card-actions">
                 <button data-select="wo" aria-pressed="false">
                   Save preference</button
-                ><a href="experience.html?style=wo">Explore palette →</a>
+                ><button class="text-button" data-palette="wo">
+                  View palette →
+                </button>
               </div>
             </div>
           </article>
@@ -132,10 +144,151 @@
           No palette selected yet.
         </p>
       </section>
+      <section id="ambiance" class="section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">02 / Ambiance studio</p>
+            <h2>Try on a different feeling.</h2>
+          </div>
+          <p>
+            One architecture, different moods. Explore the same space with two
+            palettes and three lighting treatments.
+          </p>
+        </div>
+        <div class="studio-preview" data-mood="day">
+          <img
+            id="ambiance-image"
+            src="assets/suite-med.jpg"
+            alt="Modern Mediterranean suite in daylight"
+          />
+          <div class="studio-caption">
+            <span class="eyebrow">Signature suite</span>
+            <h3 id="ambiance-title">Modern Mediterranean · Daylight</h3>
+          </div>
+        </div>
+        <div class="studio-controls">
+          <fieldset>
+            <legend>Material world</legend>
+            <button type="button" data-studio-palette="med" aria-pressed="true">
+              Mediterranean</button
+            ><button
+              type="button"
+              data-studio-palette="wo"
+              aria-pressed="false"
+            >
+              Warm Organic
+            </button>
+          </fieldset>
+          <fieldset>
+            <legend>Light & atmosphere</legend>
+            <button type="button" data-mood="day" aria-pressed="true">
+              Daylight</button
+            ><button type="button" data-mood="golden" aria-pressed="false">
+              Golden hour</button
+            ><button type="button" data-mood="evening" aria-pressed="false">
+              Evening
+            </button>
+          </fieldset>
+        </div>
+        <p class="status">
+          Atmosphere previews use visual lighting treatments on concept imagery.
+        </p>
+      </section>
+      <section id="scale" class="section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">03 / From one to many</p>
+            <h2>A signature that scales.</h2>
+          </div>
+          <p>
+            Explore how a single pod becomes a collection, a retreat, or a
+            destination. Compare density and arrangement in a live concept plan.
+          </p>
+        </div>
+        <div class="scale-layout">
+          <div class="scale-plan">
+            <svg
+              id="development-plan"
+              viewBox="0 0 900 600"
+              role="img"
+              aria-labelledby="plan-title plan-desc"
+            >
+              <title id="plan-title">Drop Pod development concept</title>
+              <desc id="plan-desc">Illustrative development layout</desc>
+            </svg>
+            <div class="plan-legend">
+              <span>◉ Drop Pod</span><span>— Shared circulation</span
+              ><span>Concept plan · Not to scale</span>
+            </div>
+          </div>
+          <div class="scale-controls">
+            <p class="eyebrow">Shape the collection</p>
+            <h3 id="scale-name">Boutique retreat</h3>
+            <label for="pod-count"
+              >Number of pods <output id="pod-count-label">24</output></label
+            ><input
+              id="pod-count"
+              type="range"
+              min="6"
+              max="120"
+              step="6"
+              value="24"
+            />
+            <div class="scale-presets">
+              <button data-count="6">6</button
+              ><button data-count="24">24</button
+              ><button data-count="60">60</button
+              ><button data-count="120">120</button>
+            </div>
+            <label for="site-layout">Development character</label
+            ><select id="site-layout">
+              <option value="coastal">Coastal ribbon</option>
+              <option value="garden">Garden clusters</option>
+              <option value="courtyard">Courtyard village</option></select
+            ><label for="pod-spacing">Spacing</label
+            ><select id="pod-spacing">
+              <option value="generous">Generous</option>
+              <option value="compact">Compact</option>
+            </select>
+            <div class="scale-stat">
+              <strong id="cluster-count">4</strong
+              ><span>six-pod collections</span>
+            </div>
+            <button id="download-plan" class="button">
+              Download concept plan ↓
+            </button>
+            <p class="status">
+              Illustrative massing study. Site dimensions, engineering,
+              capacity, and approvals are project-specific.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section id="resources" class="section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">04 / Signature design library</p>
+            <h2>Explore the design language.</h2>
+          </div>
+          <p>The concept assets, ready to explore at your own pace.</p>
+        </div>
+        <div
+          class="library-filters"
+          role="group"
+          aria-label="Filter design library"
+        >
+          <button data-filter="all" aria-pressed="true">All spaces</button
+          ><button data-filter="exterior" aria-pressed="false">
+            Architecture</button
+          ><button data-filter="interior" aria-pressed="false">Interiors</button
+          ><button data-filter="detail" aria-pressed="false">Details</button>
+        </div>
+        <div id="design-library" class="design-library"></div>
+      </section>
       <section id="review" class="section review-grid">
         <div>
-          <p class="eyebrow">02 / Keep the conversation moving</p>
-          <h2>A considered next step.</h2>
+          <p class="eyebrow">05 / Bring your vision together</p>
+          <h2>Your development vision.</h2>
           <p class="review-copy">
             What feels right? What would you change? Capture your thoughts on
             the layout, finishes, or experience before your next project
@@ -173,37 +326,17 @@
           </p>
         </form>
       </section>
-      <section id="resources" class="section">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">03 / Your project library</p>
-            <h2>Go a little deeper.</h2>
-          </div>
-          <p>The concept assets, ready to explore at your own pace.</p>
-        </div>
-        <div class="resource-grid">
-          <a href="experience.html"
-            ><span class="resource-icon">→</span>
-            <h3>Interactive walkthrough</h3>
-            <p>Explore all 17 scenes and the panoramic suite.</p>
-            <span>Open experience →</span></a
-          ><a href="assets/sumba-resort.jpg" download
-            ><span class="resource-icon">↓</span>
-            <h3>Masterplan visual</h3>
-            <p>A concept view of the Sumba shoreline.</p>
-            <span>Download JPG →</span></a
-          ><a href="assets/pod-hero.jpg" download
-            ><span class="resource-icon">↓</span>
-            <h3>Villa exterior</h3>
-            <p>A closer look at the shell and veranda.</p>
-            <span>Download JPG →</span></a
-          >
-        </div>
-      </section>
       <footer>
         <span>FJÄLL GROUP · Drop Pod Villas</span
         ><span>Concept imagery · For design discussion</span>
       </footer>
     </main>
+    <dialog id="design-modal" aria-labelledby="modal-title">
+      <div class="modal-header">
+        <p class="eyebrow">FJÄLL · Signature collection</p>
+        <button id="close-modal" aria-label="Close design detail">×</button>
+      </div>
+      <div id="modal-content"></div>
+    </dialog>
   </body>
 </html>
