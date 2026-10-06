@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FJÄLL — Client Portal</title>
+    <link rel="stylesheet" href="styles/portal.css" />
+    <script src="scripts/portal.js" defer></script>
+  </head>
+  <body>
+    <aside class="sidebar">
+      <a class="brand" href="index.html"
+        ><img src="assets/fjall-logo.png" alt="FJÄLL Group"
+      /></a>
+      <p class="eyebrow">Your project workspace</p>
+      <nav aria-label="Project navigation">
+        <a href="#overview">01 <span>Overview</span></a>
+        <a href="#materials">02 <span>Material selection</span></a>
+        <a href="#review">03 <span>Project review</span></a>
+        <a href="#resources">04 <span>Resources</span></a>
+      </nav>
+      <div class="sidebar-bottom">
+        <span class="dot"></span> Concept review<br /><small
+          >Drop Pod Villas · Sumba</small
+        >
+      </div>
+    </aside>
+    <main>
+      <header class="topbar">
+        <span>Drop Pod Villas <span class="muted">/ Client portal</span></span
+        ><span class="pill">Concept stage</span>
+      </header>
+      <section id="overview" class="section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">A place to bring your vision together</p>
+            <h1>Your next chapter,<br />beautifully considered.</h1>
+          </div>
+          <p class="intro-copy">
+            Explore your villa, compare finishes, and keep your feedback in one
+            place. Welcome to your Drop Pod project.
+          </p>
+        </div>
+        <div class="hero">
+          <img
+            src="assets/pod-hero.jpg"
+            alt="Sculpted beachfront Drop Pod villa with an open veranda"
+          />
+          <div class="hero-content">
+            <span class="eyebrow">Sumba · Indonesia</span>
+            <h2>Small footprint.<br />Extraordinary possibilities.</h2>
+            <p>
+              Step inside the architecture, from the shoreline to the sleeping
+              suite.
+            </p>
+            <a class="button light" href="experience.html"
+              >Explore your villa <span aria-hidden="true">→</span></a
+            >
+          </div>
+          <span class="hero-label"
+            >17 scenes · 2 material palettes · 360° suite</span
+          >
+        </div>
+        <div class="project-strip">
+          <div>
+            <span class="eyebrow">Project</span><strong>Drop Pod Villas</strong>
+          </div>
+          <div>
+            <span class="eyebrow">Current stage</span
+            ><strong>Concept & materials</strong>
+          </div>
+          <div>
+            <span class="eyebrow">Next step</span
+            ><strong>Share your design feedback</strong>
+          </div>
+        </div>
+      </section>
+      <section id="materials" class="section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">01 / Make it yours</p>
+            <h2>Two worlds. Your preference.</h2>
+          </div>
+          <p>
+            Compare the atmosphere of each palette. Save a preference to include
+            in your project review.
+          </p>
+        </div>
+        <div class="material-grid">
+          <article class="material-card" data-material="med">
+            <img
+              src="assets/suite-med.jpg"
+              alt="Modern Mediterranean suite with pale finishes"
+              loading="lazy"
+            />
+            <div class="card-body">
+              <span class="eyebrow">Palette 01</span>
+              <h3>Modern Mediterranean</h3>
+              <p>
+                Soft neutrals, sculptural forms, and a light, coastal
+                sensibility.
+              </p>
+              <div class="card-actions">
+                <button data-select="med" aria-pressed="false">
+                  Save preference</button
+                ><a href="experience.html?style=med">Explore palette →</a>
+              </div>
+            </div>
+          </article>
+          <article class="material-card" data-material="wo">
+            <img
+              src="assets/suite-wo.jpg"
+              alt="Warm Organic suite with natural wood finishes"
+              loading="lazy"
+            />
+            <div class="card-body">
+              <span class="eyebrow">Palette 02</span>
+              <h3>Warm Organic</h3>
+              <p>
+                Natural textures, warm timber, and a grounded connection to the
+                landscape.
+              </p>
+              <div class="card-actions">
+                <button data-select="wo" aria-pressed="false">
+                  Save preference</button
+                ><a href="experience.html?style=wo">Explore palette →</a>
+              </div>
+            </div>
+          </article>
+        </div>
+        <p id="preference-status" class="status" role="status">
+          No palette selected yet.
+        </p>
+      </section>
+      <section id="review" class="section review-grid">
+        <div>
+          <p class="eyebrow">02 / Keep the conversation moving</p>
+          <h2>A considered next step.</h2>
+          <p class="review-copy">
+            What feels right? What would you change? Capture your thoughts on
+            the layout, finishes, or experience before your next project
+            conversation.
+          </p>
+          <div class="notice">
+            Your preferences and notes are saved in this browser. Download your
+            review to share with your project team.
+          </div>
+        </div>
+        <form id="review-form" class="review-form">
+          <label for="review-topic">Review focus</label
+          ><select id="review-topic" name="topic">
+            <option>Overall concept</option>
+            <option>Layout & living spaces</option>
+            <option>Materials & finishes</option>
+            <option>Site & placement</option></select
+          ><label for="review-note">Your notes</label
+          ><textarea
+            id="review-note"
+            name="note"
+            rows="6"
+            maxlength="5000"
+            placeholder="Tell us what you love and what you’d like to explore further…"
+            required
+          ></textarea>
+          <div class="form-actions">
+            <button class="button" type="submit">Save review</button
+            ><button class="text-button" id="download-review" type="button">
+              Download review ↓
+            </button>
+          </div>
+          <p id="review-status" class="status" role="status">
+            No review saved yet.
+          </p>
+        </form>
+      </section>
+      <section id="resources" class="section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">03 / Your project library</p>
+            <h2>Go a little deeper.</h2>
+          </div>
+          <p>The concept assets, ready to explore at your own pace.</p>
+        </div>
+        <div class="resource-grid">
+          <a href="experience.html"
+            ><span class="resource-icon">→</span>
+            <h3>Interactive walkthrough</h3>
+            <p>Explore all 17 scenes and the panoramic suite.</p>
+            <span>Open experience →</span></a
+          ><a href="assets/sumba-resort.jpg" download
+            ><span class="resource-icon">↓</span>
+            <h3>Masterplan visual</h3>
+            <p>A concept view of the Sumba shoreline.</p>
+            <span>Download JPG →</span></a
+          ><a href="assets/pod-hero.jpg" download
+            ><span class="resource-icon">↓</span>
+            <h3>Villa exterior</h3>
+            <p>A closer look at the shell and veranda.</p>
+            <span>Download JPG →</span></a
+          >
+        </div>
+      </section>
+      <footer>
+        <span>FJÄLL GROUP · Drop Pod Villas</span
+        ><span>Concept imagery · For design discussion</span>
+      </footer>
+    </main>
+  </body>
+</html>
