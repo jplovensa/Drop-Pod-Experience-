@@ -981,3 +981,73 @@ dialog::backdrop {
     bottom: 190px;
   }
 }
+#walk-viewport {
+  overflow: hidden;
+  background: #172c27;
+}
+.rendered-scene {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  animation: render-in 0.45s ease-out;
+}
+img.rendered-scene {
+  transform: scale(1.15);
+  cursor: grab;
+}
+img.rendered-scene:active {
+  cursor: grabbing;
+}
+.tour-scene-nav {
+  position: absolute;
+  top: 110px;
+  left: 32px;
+  right: 32px;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.tour-scene-nav button {
+  color: white;
+  background: #203b33d9;
+  border: 1px solid #ffffff50;
+  border-radius: 30px;
+  padding: 8px 14px;
+  font:
+    11px Inter,
+    sans-serif;
+}
+.tour-scene-nav button[aria-pressed="true"] {
+  color: #203b33;
+  background: #f5f4ef;
+}
+.tour-error {
+  padding: 240px 32px;
+}
+@keyframes render-in {
+  from {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (max-width: 760px) {
+  .tour-scene-nav {
+    left: 18px;
+    right: 18px;
+    top: 96px;
+    gap: 5px;
+  }
+  .tour-scene-nav button {
+    padding: 6px 10px;
+    font-size: 9px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rendered-scene {
+    animation: none;
+  }
+}

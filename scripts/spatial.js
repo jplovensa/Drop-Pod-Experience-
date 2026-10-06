@@ -30,21 +30,8 @@ const finishes = [
   },
 ];
 const exterior = document.querySelector("#exterior-viewport");
-const modal = document.querySelector("#walk-modal");
-const walkViewport = document.querySelector("#walk-viewport");
 let selectedFinish = finishes[0],
-  preview,
-  walk,
-  yaw = 0,
-  pitch = 0,
-  lastTime = 0,
-  frame;
-const keys = new Set();
-const obstacles = [
-  [-2.7, -1.7, -2.8, 0.8],
-  [0.8, 2.5, 0.1, 2.1],
-  [-1.15, 1.15, -3.8, -1.1],
-];
+  preview;
 function grain() {
   const canvas = document.createElement("canvas");
   canvas.width = canvas.height = 128;
@@ -211,7 +198,7 @@ function buildWorld(host) {
 }
 function applyFinish(id) {
   selectedFinish = finishes.find((f) => f.id === id) || finishes[0];
-  for (const world of [preview, walk])
+  for (const world of [preview])
     if (world) {
       world.shellMaterial.color.set(selectedFinish.color);
       world.shellMaterial.roughness = selectedFinish.roughness;
@@ -229,7 +216,6 @@ function applyFinish(id) {
         String(button.dataset.finish === selectedFinish.id),
       ),
     );
-  document.querySelector("#walk-finish").value = selectedFinish.id;
   if (preview) preview.renderer.render(preview.scene, preview.camera);
 }
 for (const finish of finishes) {
@@ -239,12 +225,7 @@ for (const finish of finishes) {
   button.innerHTML = `<i style="background:${finish.color}"></i>${finish.name}`;
   button.addEventListener("click", () => applyFinish(finish.id));
   document.querySelector("#exterior-swatches").append(button);
-  const option = new Option(finish.name, finish.id);
-  document.querySelector("#walk-finish").add(option);
 }
-document
-  .querySelector("#walk-finish")
-  .addEventListener("change", (event) => applyFinish(event.target.value));
 let angle = 0.65,
   elevation = 0.28,
   distance = 15,
@@ -294,122 +275,3 @@ try {
   exterior.querySelector(".renderer-loading").textContent =
     "The 3D finish studio needs WebGL. You can still explore the cinematic walkthrough and material library.";
 }
-function resetWalk() {
-  if (!walk) return;
-  walk.camera.position.set(0, 1.7, 6.2);
-  yaw = pitch = 0;
-  walk.camera.rotation.set(0, 0, 0);
-  keys.clear();
-}
-function animate(time) {
-  if (!modal.open || !walk) return;
-  const dt = Math.min((time - lastTime) / 1000, 0.1);
-  lastTime = time;
-  let forward = Number(keys.has("forward")) - Number(keys.has("backward")),
-    side = Number(keys.has("right")) - Number(keys.has("left"));
-  const length = Math.hypot(forward, side) || 1;
-  forward /= length;
-  side /= length;
-  const dx = (side * Math.cos(yaw) - forward * Math.sin(yaw)) * dt * 2.2,
-    dz = (-forward * Math.cos(yaw) - side * Math.sin(yaw)) * dt * 2.2;
-  const pos = walk.camera.position;
-  const valid = (x, z) =>
-    x > -(z < 4 ? 2.45 : 2.8) &&
-    x < (z < 4 ? 2.45 : 2.8) &&
-    z > -3.6 &&
-    z < 6.6 &&
-    !obstacles.some(
-      ([x1, x2, z1, z2]) =>
-        x > x1 - 0.2 && x < x2 + 0.2 && z > z1 - 0.2 && z < z2 + 0.2,
-    );
-  if (valid(pos.x + dx, pos.z)) pos.x += dx;
-  if (valid(pos.x, pos.z + dz)) pos.z += dz;
-  walk.camera.rotation.set(pitch, yaw, 0);
-  walk.renderer.render(walk.scene, walk.camera);
-  document.querySelector("#walk-location").textContent =
-    pos.z > 4 ? "Veranda" : pos.z > 0 ? "Living suite" : "Sleeping suite";
-  frame = requestAnimationFrame(animate);
-}
-document.querySelectorAll("[data-open-walk]").forEach((button) =>
-  button.addEventListener("click", () => {
-    modal.showModal();
-    document.body.style.overflow = "hidden";
-    try {
-      if (!walk) walk = buildWorld(walkViewport);
-      walk.resize();
-      applyFinish(selectedFinish.id);
-      resetWalk();
-      lastTime = performance.now();
-      frame = requestAnimationFrame(animate);
-      walkViewport.focus();
-    } catch {
-      walkViewport.innerHTML =
-        '<p style="padding:120px 32px">Your browser could not start the 3D walkthrough. <a href="experience.html" style="color:white">Open the cinematic experience instead →</a></p>';
-    }
-  }),
-);
-document
-  .querySelector("#close-walk")
-  .addEventListener("click", () => modal.close());
-modal.addEventListener("close", () => {
-  cancelAnimationFrame(frame);
-  keys.clear();
-  document.body.style.overflow = "";
-});
-document.querySelector("#reset-walk").addEventListener("click", resetWalk);
-const keyMap = {
-  KeyW: "forward",
-  ArrowUp: "forward",
-  KeyS: "backward",
-  ArrowDown: "backward",
-  KeyA: "left",
-  ArrowLeft: "left",
-  KeyD: "right",
-  ArrowRight: "right",
-};
-window.addEventListener("keydown", (event) => {
-  if (!modal.open || ["SELECT", "BUTTON"].includes(event.target.tagName))
-    return;
-  if (keyMap[event.code]) {
-    event.preventDefault();
-    keys.add(keyMap[event.code]);
-  }
-});
-window.addEventListener("keyup", (event) => keys.delete(keyMap[event.code]));
-window.addEventListener("blur", () => keys.clear());
-document.addEventListener("visibilitychange", () => keys.clear());
-let looking;
-walkViewport.addEventListener("pointerdown", (event) => {
-  looking = { x: event.clientX, y: event.clientY };
-  walkViewport.setPointerCapture(event.pointerId);
-  walkViewport.focus();
-});
-walkViewport.addEventListener("pointermove", (event) => {
-  if (!looking) return;
-  yaw -= (event.clientX - looking.x) * 0.004;
-  pitch = THREE.MathUtils.clamp(
-    pitch - (event.clientY - looking.y) * 0.004,
-    -1.15,
-    1.15,
-  );
-  looking = { x: event.clientX, y: event.clientY };
-});
-for (const name of ["pointerup", "pointercancel"])
-  walkViewport.addEventListener(name, () => (looking = null));
-document.querySelectorAll("[data-move]").forEach((button) => {
-  button.addEventListener("pointerdown", (event) => {
-    event.preventDefault();
-    keys.add(button.dataset.move);
-    button.setPointerCapture(event.pointerId);
-  });
-  for (const name of ["pointerup", "pointercancel", "lostpointercapture"])
-    button.addEventListener(name, () => keys.delete(button.dataset.move));
-});
-document.querySelector("#capture-walk").addEventListener("click", () => {
-  if (!walk) return;
-  walk.renderer.render(walk.scene, walk.camera);
-  const link = document.createElement("a");
-  link.download = "fjall-first-person-view.png";
-  link.href = walk.renderer.domElement.toDataURL("image/png");
-  link.click();
-});
