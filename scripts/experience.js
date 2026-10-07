@@ -184,6 +184,12 @@ SCENES.forEach((s, i) => {
       look.appendChild(img);
     }
   }
+  const earthyImage = document.createElement("img");
+  earthyImage.src = window.interiorImage(s.key, "el");
+  earthyImage.dataset.style = "el";
+  earthyImage.alt = `Earthy Luxe — ${s.title}`;
+  earthyImage.draggable = false;
+  look.appendChild(earthyImage);
   sc.appendChild(look);
   stage.appendChild(sc);
 
@@ -484,7 +490,7 @@ function resetLook() {
 
 function lookLoop(t) {
   if (mode !== "explore") return;
-  if (SCENES[cur].pano) {
+  if (SCENES[cur].pano && style !== "el") {
     // HUD driven by the 360 viewer's true heading
     const deg = ((pano.yaw % 360) + 360) % 360;
     setCompass(deg);
@@ -530,7 +536,7 @@ function lookLoop(t) {
 }
 
 stage.addEventListener("pointerdown", (e) => {
-  if (mode !== "explore" || SCENES[cur].pano) return;
+  if (mode !== "explore" || (SCENES[cur].pano && style !== "el")) return;
   look.dragging = true;
   look.lx = e.clientX;
   look.ly = e.clientY;
@@ -577,7 +583,7 @@ btnMotion.addEventListener("click", async () => {
 });
 window.addEventListener("deviceorientation", (e) => {
   if (!look.gyro) return;
-  if (SCENES[cur] && SCENES[cur].pano) {
+  if (SCENES[cur] && SCENES[cur].pano && style !== "el") {
     if (e.gamma != null) pano.tYaw += e.gamma * 0.02;
     if (e.beta != null)
       pano.tPitch = Math.max(-85, Math.min(85, (e.beta - 45) * 1.2));
@@ -597,7 +603,7 @@ function show(i, { reset = true } = {}) {
       if (v) v.pause();
     }
   });
-  if (SCENES[i].pano) {
+  if (SCENES[i].pano && style !== "el") {
     initPano();
     pano.canvas.style.opacity = pano.ready[style] ? 1 : 0;
     pano.tYaw = pano.yaw = 0;
@@ -609,13 +615,16 @@ function show(i, { reset = true } = {}) {
     badge360.classList.remove("show");
   }
   mediaOf(i).forEach((m) => {
-    const on = m.dataset.style === "both" || m.dataset.style === style;
+    const on =
+      m.dataset.style === style ||
+      (m.dataset.style === "both" && style !== "el");
     m.classList.toggle("show", on);
     m.classList.remove("kb-a", "kb-b", "kb-c");
     if (on && m.tagName === "IMG") {
       void m.offsetWidth;
       m.classList.add(KB[i % 3]);
     }
+    if (!on && m.tagName === "VIDEO") m.pause();
     if (on && m.tagName === "VIDEO") {
       m.currentTime = 0;
       m.play().catch(() => {});
@@ -630,8 +639,14 @@ function show(i, { reset = true } = {}) {
     s.querySelector(".fill").style.width = idx < i ? "100%" : "0";
   });
   capNo.textContent = `${String(i + 1).padStart(2, "0")} — ${String(SCENES.length).padStart(2, "0")}`;
-  capTitle.textContent = SCENES[i].title;
-  capDesc.textContent = SCENES[i].desc;
+  const earthyView =
+    window.EARTHY_LUXE_VIEWS.find((view) => view.key === SCENES[i].key) ||
+    window.EARTHY_LUXE_VIEWS[0];
+  capTitle.textContent = style === "el" ? earthyView.title : SCENES[i].title;
+  capDesc.textContent =
+    style === "el"
+      ? "Earthy Luxe · Warm oak, veined stone, layered linen and dark accents. Supplied perspective design render."
+      : SCENES[i].desc;
   counterCur.textContent = String(i + 1).padStart(2, "0");
   capInner.classList.remove("cap-anim");
   void capInner.offsetWidth;
@@ -724,36 +739,24 @@ document
 
 /* ---------- style switch ---------- */
 function setStyle(st) {
-  if (st === style) return;
+  if (!window.INTERIOR_PALETTES[st]) return;
   style = st;
-  document.getElementById("swMed").classList.toggle("on", st === "med");
-  document.getElementById("swWo").classList.toggle("on", st === "wo");
-  styleName.textContent =
-    st === "med" ? "Modern Mediterranean" : "Warm Organic";
-  if (SCENES[cur].pano) {
-    pano.canvas.style.opacity = pano.ready[st] ? 1 : 0;
-  } else {
-    mediaOf(cur).forEach((m) => {
-      const on = m.dataset.style === "both" || m.dataset.style === st;
-      m.classList.remove("kb-a", "kb-b", "kb-c");
-      if (on && m.tagName === "IMG") {
-        void m.offsetWidth;
-        m.classList.add(KB[cur % 3]);
-      }
-      m.classList.toggle("show", on);
-    });
-    [cur + 1, cur + 2].forEach((k) => {
-      if (k < SCENES.length && !SCENES[k].video && !SCENES[k].pano) {
-        const im = new Image();
-        im.src = `assets/${SCENES[k].key}-${st}.jpg`;
-      }
-    });
-  }
+  [
+    ["swMed", "med"],
+    ["swWo", "wo"],
+    ["swEl", "el"],
+  ].forEach(([id, key]) =>
+    document.getElementById(id).classList.toggle("on", key === st),
+  );
+  styleName.textContent = window.INTERIOR_PALETTES[st].title;
+  show(cur, { reset: false });
 }
+
 document
   .getElementById("swMed")
   .addEventListener("click", () => setStyle("med"));
 document.getElementById("swWo").addEventListener("click", () => setStyle("wo"));
+document.getElementById("swEl").addEventListener("click", () => setStyle("el"));
 
 /* ---------- transport ---------- */
 document
@@ -827,8 +830,12 @@ function start() {
   const iv = document.querySelector("#intro video.bg");
   if (iv) iv.pause();
   const requestedStyle = new URLSearchParams(location.search).get("style");
-  if (requestedStyle === "wo") setStyle("wo");
-  show(0);
+  if (window.INTERIOR_PALETTES[requestedStyle]) setStyle(requestedStyle);
+  cur =
+    requestedStyle === "el"
+      ? SCENES.findIndex((scene) => scene.key === "suite")
+      : 0;
+  show(cur);
   play();
 }
 document.getElementById("begin").addEventListener("click", start);

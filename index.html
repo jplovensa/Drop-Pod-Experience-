@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="styles/fonts.css" />
+    <script src="scripts/interior-palettes.js" defer></script>
     <title>FJÄLL — Client Portal</title>
     <link rel="stylesheet" href="styles/portal.css" />
     <script src="scripts/portal.js" defer></script>
@@ -24,6 +25,7 @@
         ><a href="#ambiance">03 <span>Ambiance studio</span></a
         ><a href="#scale">04 <span>Development scale</span></a
         ><a href="#resources">05 <span>Design library</span></a
+        ><a href="#earthy-luxe">+ <span>Earthy Luxe collection</span></a
         ><a href="#review">06 <span>Your design brief</span></a>
       </nav>
       <div class="sidebar-bottom">
@@ -70,7 +72,7 @@
             >
           </div>
           <span class="hero-label"
-            >17 scenes · 2 material palettes · 360° suite</span
+            >17 scenes · 3 material palettes · 360° suite</span
           >
         </div>
         <div class="project-strip">
@@ -91,7 +93,7 @@
         <div class="section-heading">
           <div>
             <p class="eyebrow">01 / Make it yours</p>
-            <h2>Two worlds. Your preference.</h2>
+            <h2>Three worlds. Your preference.</h2>
           </div>
           <p>
             Compare the atmosphere of each palette. Save a preference to include
@@ -138,6 +140,28 @@
                 <button data-select="wo" aria-pressed="false">
                   Save preference</button
                 ><button class="text-button" data-palette="wo">
+                  View palette →
+                </button>
+              </div>
+            </div>
+          </article>
+          <article class="material-card" data-material="el">
+            <img
+              src="assets/earthy-luxe/v1.webp"
+              alt="Earthy Luxe suite with warm timber, pale stone and layered linen"
+              loading="lazy"
+            />
+            <div class="card-body">
+              <span class="eyebrow">Palette 03 / New collection</span>
+              <h3>Earthy Luxe</h3>
+              <p>
+                Warm oak, veined stone, layered linen, and dark accents. A
+                tactile, softly illuminated interior.
+              </p>
+              <div class="card-actions">
+                <button data-select="el" aria-pressed="false">
+                  Save preference</button
+                ><button class="text-button" data-palette="el">
                   View palette →
                 </button>
               </div>
@@ -206,7 +230,7 @@
             Launch immersive walkthrough →
           </button>
           <p class="status">
-            Real-time 3D · First-person exploration · Two palettes
+            Real-time 3D · First-person exploration · Three palettes
           </p>
         </div>
       </section>
@@ -217,7 +241,7 @@
             <h2>Try on a different feeling.</h2>
           </div>
           <p>
-            One architecture, different moods. Explore the same space with two
+            One architecture, different moods. Explore the same space with three
             palettes and three lighting treatments.
           </p>
         </div>
@@ -243,6 +267,9 @@
               aria-pressed="false"
             >
               Warm Organic
+            </button>
+            <button type="button" data-studio-palette="el" aria-pressed="false">
+              Earthy Luxe
             </button>
           </fieldset>
           <fieldset>
@@ -351,6 +378,22 @@
         </div>
         <div id="design-library" class="design-library"></div>
       </section>
+      <section id="earthy-luxe" class="section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">New / Earthy Luxe collection</p>
+            <h2>Warmth in every detail.</h2>
+          </div>
+          <p>
+            Ten supplied design views, from the suite and kitchen to the outdoor
+            lounge. Open any image to explore the complete collection.
+          </p>
+        </div>
+        <div id="earthy-luxe-gallery" class="design-library"></div>
+        <p class="status">
+          Supplied design renders · Original composition preserved
+        </p>
+      </section>
       <section id="review" class="section review-grid">
         <div>
           <p class="eyebrow">05 / Bring your vision together</p>
@@ -433,7 +476,8 @@
           <select id="walk-finish" aria-label="Exterior finish"></select
           ><select id="tour-palette" aria-label="Interior palette">
             <option value="med">Mediterranean</option>
-            <option value="wo">Warm Organic</option></select
+            <option value="wo">Warm Organic</option>
+            <option value="el">Earthy Luxe</option></select
           ><button id="reset-walk">Reset view</button
           ><button id="capture-walk">Save view ↓</button>
         </div>

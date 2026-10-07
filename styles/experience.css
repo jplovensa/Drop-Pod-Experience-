@@ -889,3 +889,10 @@ a:focus-visible {
     line-height: 1.6;
   }
 }
+@media (max-width: 640px) {
+  #styleSwitch button {
+    font-size: 8px;
+    padding: 12px 9px;
+    letter-spacing: 0.08em;
+  }
+}

@@ -1,6 +1,10 @@
 /* Browser-local project review. No credentials or server storage are implied. */
 const STORAGE_KEY = "fjall-drop-pod-review-v1";
-const palettes = { med: "Modern Mediterranean", wo: "Warm Organic" };
+const palettes = {
+  med: "Modern Mediterranean",
+  wo: "Warm Organic",
+  el: "Earthy Luxe",
+};
 const form = document.querySelector("#review-form");
 const noteInput = document.querySelector("#review-note");
 const topicInput = document.querySelector("#review-topic");

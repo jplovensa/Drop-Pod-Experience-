@@ -608,9 +608,38 @@ export function createPodWorld(host) {
     materials.shell.bumpScale = finish.id === "graphite" ? 0.004 : 0.012;
   };
   const setPalette = (id) => {
-    materials.timber.color.set(id === "wo" ? "#866446" : "#a38a69");
-    materials.lining.color.set(id === "wo" ? "#d4c5ab" : "#e6ddca");
-    blanket.color.set(id === "wo" ? "#85755d" : "#998d7c");
+    const palette = {
+      med: {
+        timber: "#a38a69",
+        lining: "#e6ddca",
+        fabric: "#ede8df",
+        stone: "#c8bca4",
+        blanket: "#998d7c",
+      },
+      wo: {
+        timber: "#866446",
+        lining: "#d4c5ab",
+        fabric: "#dcd1bd",
+        stone: "#bcb096",
+        blanket: "#85755d",
+      },
+      el: {
+        timber: "#a18b6e",
+        lining: "#ded8ce",
+        fabric: "#c8c2b8",
+        stone: "#e2dbce",
+        blanket: "#383733",
+      },
+    }[id] || {
+      timber: "#a38a69",
+      lining: "#e6ddca",
+      fabric: "#ede8df",
+      stone: "#c8bca4",
+      blanket: "#998d7c",
+    };
+    for (const key of ["timber", "lining", "fabric", "stone"])
+      materials[key].color.set(palette[key]);
+    blanket.color.set(palette.blanket);
   };
   return { scene, camera, renderer, resize, setFinish, setPalette };
 }

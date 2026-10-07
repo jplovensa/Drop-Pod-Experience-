@@ -22,7 +22,7 @@ Open the served `index.html` in a browser. No build step or package installation
 
 ## Client workflow
 
-Compare two material palettes, save a preference, explore the villa, and record review notes. Preferences and notes persist in browser local storage. Download the review as a text file for sharing with the project team. Palette links open the walkthrough with the requested material selection.
+Compare three material palettes, save a preference, explore the villa, and record review notes. Preferences and notes persist in browser local storage. Download the review as a text file for sharing with the project team. Palette links open the walkthrough with the requested material selection.
 
 All interactions run in the browser, with local preferences and downloadable briefs. No backend or account is required. Concept selection is a design preference.
 
@@ -41,3 +41,7 @@ The portal is entirely frontend. Material detail modals show conceptual color re
 `pod-model.js` defines the reference-derived asymmetric teardrop shell used by both the exterior studio and the modal walkthrough. Its lofted outer skin, separate interior lining, thick rounded lip, recessed glazing, veranda, and entry steps follow the supplied renders. The model adds tiled flooring, timber cabinetry, pleated curtains, furniture, ambient contact shadows, PBR surface textures, environment reflections, and warm interior lighting. Geometry and dimensions remain indicative; exact reproduction requires the original model or dimensioned drawings.
 
 Select an exterior swatch in either view to update both. Interior palettes change timber and lining tones. The fullscreen walkthrough supports WASD/arrows, drag-to-look, touch movement buttons, collision boundaries, viewpoint shortcuts, reset, and PNG export. Escape closes it. No backend or runtime CDN is required. WebGL is required; unsupported browsers receive a link to the original rendered experience. Inter and Three.js remain locally hosted with their licenses.
+
+## Earthy Luxe collection
+
+All ten supplied Earthy Luxe views are retained as optimized WebP assets under `assets/earthy-luxe/`. The originals remain in the uploaded archive; web assets preserve the full composition. `interior-palettes.js` shares titles and view mappings between the portal and cinematic experience. Earthy Luxe supports saved preferences, material and library modals, the ambiance studio, and a ten-view collection with downloads. The cinematic experience shows the supplied perspective images when Earthy Luxe is selected; it does not project them as a fabricated 360° panorama or recolor the existing films. The WebGL model applies a reference-based Earthy Luxe color/material treatment; it is not a reconstruction of the new images' exact geometry.

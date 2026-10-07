@@ -25,6 +25,7 @@ const worlds = {
     ],
   },
 };
+worlds.el = window.INTERIOR_PALETTES.el;
 function openDesign(content) {
   modalContent.innerHTML = content;
   modal.showModal();
@@ -49,7 +50,7 @@ document.querySelectorAll("[data-palette]").forEach((button) =>
     const key = button.dataset.palette,
       world = worlds[key];
     openDesign(
-      `<h2 id="modal-title">${world.title}</h2><img src="assets/suite-${key}.jpg" alt="${world.title} suite"><p>${world.description}</p><div class="swatches">${world.swatches.map(([name, color]) => `<div class="swatch"><i style="background:${color}"></i><span>${name}</span></div>`).join("")}</div><p class="status">Concept color references. Final material specifications are selected for each project.</p><a class="button" href="experience.html?style=${key}">Walk through this palette →</a>`,
+      `<h2 id="modal-title">${world.title}</h2><img src="${window.interiorImage("suite", key)}" alt="${world.title} suite"><p>${world.description}</p><div class="swatches">${world.swatches.map(([name, color]) => `<div class="swatch"><i style="background:${color}"></i><span>${name}</span></div>`).join("")}</div><p class="status">Concept color references. Final material specifications are selected for each project.</p><a class="button" href="experience.html?style=${key}">Walk through this palette →</a>`,
     );
   }),
 );
@@ -58,7 +59,7 @@ let studioPalette = "med",
 const moods = { day: "Daylight", golden: "Golden hour", evening: "Evening" };
 function updateStudio() {
   const image = document.querySelector("#ambiance-image");
-  image.src = `assets/suite-${studioPalette}.jpg`;
+  image.src = window.interiorImage("suite", studioPalette);
   image.alt = `${worlds[studioPalette].title} suite with ${moods[studioMood].toLowerCase()} treatment`;
   document.querySelector(".studio-preview").dataset.mood = studioMood;
   document.querySelector("#ambiance-title").textContent =
@@ -146,14 +147,14 @@ function renderLibrary(filter = "all") {
       button.innerHTML = `<img src="assets/${item.key}-med.jpg" alt="${item.title}" loading="lazy"><span>${item.title} →</span>`;
       button.addEventListener("click", () => {
         openDesign(
-          `<h2 id="modal-title">${item.title}</h2><img id="library-detail-image" src="assets/${item.key}-med.jpg" alt="${item.title} in Modern Mediterranean"><p>${item.description}</p><fieldset><legend>Compare material worlds</legend><button class="button" id="library-med">Mediterranean</button> <button class="button" id="library-wo">Warm Organic</button></fieldset><p class="status">Concept imagery · Signature design collection</p>`,
+          `<h2 id="modal-title">${item.title}</h2><img id="library-detail-image" src="assets/${item.key}-med.jpg" alt="${item.title} in Modern Mediterranean"><p>${item.description}</p><fieldset><legend>Compare material worlds</legend><button class="button" id="library-med">Mediterranean</button> <button class="button" id="library-wo">Warm Organic</button> <button class="button" id="library-el">Earthy Luxe</button></fieldset><p class="status">Concept imagery · Signature design collection</p>`,
         );
-        ["med", "wo"].forEach((key) =>
+        ["med", "wo", "el"].forEach((key) =>
           document
             .querySelector(`#library-${key}`)
             .addEventListener("click", () => {
               const image = document.querySelector("#library-detail-image");
-              image.src = `assets/${item.key}-${key}.jpg`;
+              image.src = window.interiorImage(item.key, key);
               image.alt = `${item.title} in ${worlds[key].title}`;
             }),
         );
@@ -256,3 +257,29 @@ document.querySelector("#download-plan").addEventListener("click", () => {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 });
 renderPlan();
+
+// The collection preserves all ten supplied reference views.
+function openEarthyView(index) {
+  const views = window.EARTHY_LUXE_VIEWS;
+  const item = views[(index + views.length) % views.length];
+  openDesign(
+    `<h2 id="modal-title">Earthy Luxe / ${item.title}</h2><img src="assets/earthy-luxe/v${item.view}.webp" alt="Earthy Luxe ${item.title}"><p>${worlds.el.description}</p><div class="form-actions"><button class="button" id="el-prev">← Previous</button><span>${index + 1} / ${views.length}</span><button class="button" id="el-next">Next →</button><a href="assets/earthy-luxe/v${item.view}.webp" download>Download view ↓</a></div><p class="status">Supplied perspective render · Earthy Luxe collection</p><a class="button" href="experience.html?style=el">Open the Earthy Luxe experience →</a>`,
+  );
+  document
+    .querySelector("#el-prev")
+    .addEventListener("click", () =>
+      openEarthyView((index + views.length - 1) % views.length),
+    );
+  document
+    .querySelector("#el-next")
+    .addEventListener("click", () =>
+      openEarthyView((index + 1) % views.length),
+    );
+}
+window.EARTHY_LUXE_VIEWS.forEach((item, index) => {
+  const button = document.createElement("button");
+  button.className = "library-card";
+  button.innerHTML = `<img src="assets/earthy-luxe/v${item.view}.webp" alt="Earthy Luxe ${item.title}" loading="lazy"><span>${String(index + 1).padStart(2, "0")} / ${item.title} →</span>`;
+  button.addEventListener("click", () => openEarthyView(index));
+  document.querySelector("#earthy-luxe-gallery").append(button);
+});

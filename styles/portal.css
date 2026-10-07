@@ -1051,3 +1051,26 @@ img.rendered-scene:active {
     animation: none;
   }
 }
+/* Three interior worlds and the supplied Earthy Luxe references. */
+@media (min-width: 1200px) {
+  .material-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+#earthy-luxe-gallery {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+#earthy-luxe-gallery img {
+  aspect-ratio: 1.5;
+  object-fit: contain;
+  background: #e9e5df;
+}
+@media (max-width: 760px) {
+  #earthy-luxe-gallery {
+    grid-template-columns: 1fr;
+  }
+}
+#modal-content:has(#el-next) > img {
+  max-height: 60vh;
+  object-fit: contain;
+}
