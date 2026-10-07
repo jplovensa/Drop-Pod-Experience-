@@ -35,3 +35,48 @@ window.interiorImage = (key, palette) => {
   }
   return `assets/${key}-${palette}.jpg`;
 };
+
+// The supplied Earthy Luxe exports contain a corrupted strip in their top quarter.
+// Crop only their presentation; the source assets remain unchanged.
+(() => {
+  function syncCrops() {
+    document.querySelectorAll("img").forEach((image) => {
+      const earthy = image.getAttribute("src")?.includes("assets/earthy-luxe/");
+      const wrapper = image.parentElement;
+      if (earthy && !wrapper?.classList.contains("earthy-image-crop")) {
+        const frame = document.createElement("div");
+        frame.className = "earthy-image-crop";
+        image.before(frame);
+        frame.append(image);
+      } else if (!earthy && wrapper?.classList.contains("earthy-image-crop")) {
+        wrapper.replaceWith(image);
+      }
+    });
+  }
+  let scheduled = false;
+  const observer = new MutationObserver((records) => {
+    const imageChange = records.some(
+      (record) =>
+        record.type === "attributes" ||
+        [...record.addedNodes].some(
+          (node) =>
+            node.nodeType === 1 &&
+            (node.tagName === "IMG" || node.querySelector?.("img")),
+        ),
+    );
+    if (!imageChange) return;
+    if (scheduled) return;
+    scheduled = true;
+    queueMicrotask(() => {
+      scheduled = false;
+      syncCrops();
+    });
+  });
+  syncCrops();
+  observer.observe(document.body, {
+    subtree: true,
+    childList: true,
+    attributes: true,
+    attributeFilter: ["src"],
+  });
+})();

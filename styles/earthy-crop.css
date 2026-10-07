@@ -1,0 +1,41 @@
+/* The damaged band ends at 25%; a small guard excludes compression edge noise. */
+.earthy-image-crop {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 2.00535;
+  background: #e9e5df;
+}
+.earthy-image-crop > img {
+  position: absolute !important;
+  inset: auto !important;
+  left: 0 !important;
+  top: -33.68984% !important;
+  display: block;
+  width: 100% !important;
+  height: 133.68984% !important;
+  max-height: none !important;
+  aspect-ratio: auto !important;
+  object-fit: fill !important;
+  margin: 0 !important;
+  transform: none !important;
+}
+.material-card > .earthy-image-crop {
+  aspect-ratio: 2.00535;
+}
+#modal-content > .earthy-image-crop {
+  width: min(100%, 120vh);
+  margin: 20px auto;
+  border-radius: 4px;
+}
+/* Center and cover the stage with the valid part of the source render. */
+.scene .earthy-image-crop {
+  position: absolute;
+  width: max(100%, 200.535vh);
+  min-height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: transparent;
+}
