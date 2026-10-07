@@ -15,7 +15,7 @@ Open the served `index.html` in a browser. No build step or package installation
 ## Structure
 
 - `index.html`: project overview, material preferences, review notes, and resources.
-- `experience-v3.html`: the current cinematic and panoramic walkthrough (`experience.html` remains compatible).
+- `experience-v4.html`: the current cinematic and panoramic walkthrough (`experience.html` remains compatible).
 - `styles/`: responsive portal and walkthrough styles.
 - `scripts/`: portal review state and walkthrough controls.
 - `assets/`: images and videos from the supplied project archive.
@@ -50,12 +50,16 @@ The ten supplied Earthy Luxe exports contain a corrupted repeated gray strip in 
 
 ### Rendered Earthy Luxe film
 
-Earthy Luxe Film mode plays `assets/earthy-luxe/film/earthy-luxe-cinematic-v3.mp4`: a silent 152-second H.264 film, 1280×720 at 24 fps. The 17 chapters follow the Mediterranean and Warm Organic order. Destination, beachfront and approach use shared architectural footage. Entrance and suite reveal are new three-shot sequences; the remaining Earthy Luxe chapters animate the supplied perspective views with gentle camera movement. These animations do not replace a continuous 3D walkthrough rendered from the original model. The corrupt top strip is excluded from the rendered footage.
+Earthy Luxe Film mode plays `assets/earthy-luxe/film/earthy-luxe-cinematic-v4.mp4`: a silent 152-second H.264 film, 1280×720 at 24 fps. The 17 chapters follow the Mediterranean and Warm Organic order. Destination, beachfront and approach use shared architectural footage. Entrance and suite reveal are new three-shot sequences; the remaining Earthy Luxe chapters use fixed camera framing of the supplied perspective views. Entrance and suite shots blend with half-second dissolves. These sequences use supplied still renders, rather than a continuous 3D camera render from the original model. The corrupt top strip is excluded from the rendered footage.
 
 Chapter captions, progress, pause/resume and seeking follow the actual video playback clock, including when buffering. `chapters.json` records exact start times and source views. Explore mode uses separate Earthy Luxe entrance/suite clips and cropped perspective references. The end card includes a film download.
 
 Regenerate the film with `python3 tools/render-earthy-film.py` (requires FFmpeg with libx264 and Python 3). Sources are unchanged; outputs are under `assets/earthy-luxe/film/`.
 
-Portal links use the fresh `experience-v3.html` entry and `scripts/experience-player-v3.js` filename to avoid earlier cached page/player URLs. `experience.html` also loads this player; `scripts/experience.js` is a compatibility loader for older bookmarks. The page exposes release `20261007-film3` in its `walkthrough-version` meta tag. Keep both HTML entries identical when publishing updates.
+Portal links use the fresh `experience-v4.html` entry and `scripts/experience-player-v4.js` filename to avoid earlier cached page/player URLs. `experience.html` also loads this player; `scripts/experience.js` is a compatibility loader for older bookmarks. The page exposes release `20261008-steady4` in its `walkthrough-version` meta tag. Keep the compatible HTML entries identical when publishing updates.
 
 Browser regression: with Playwright installed and an HTTP server that supports byte ranges, run `BASE_URL=http://localhost:3001 node tests/earthy-film.cjs`. Set `PLAYWRIGHT_MODULE` if Playwright lives outside the project. The check decodes the film, navigates all 17 chapters, crosses their boundaries, and exercises transport, palette changes, Explore mode, replay and mobile width.
+
+The stabilized v4 film removes zoom/crop animation from still-derived shots to prevent pixel-step jitter. Earthy Luxe Explore mode also keeps the camera still when idle; drag controls remain available. Media filenames and release queries keep older cached renders separate.
+
+Camera regression: `python3 tests/earthy-camera.py` requires FFmpeg and NumPy. It decodes held-shot samples in every still-derived chapter and rejects unintended frame changes.

@@ -168,7 +168,7 @@ document.querySelectorAll("[data-open-walk]").forEach((button) =>
       frame = requestAnimationFrame(loop);
     } catch {
       viewport.innerHTML =
-        '<p style="padding:220px 32px">WebGL could not start. <a href="experience-v3.html?v=20261007-film3" style="color:white">Open the rendered experience →</a></p>';
+        '<p style="padding:220px 32px">WebGL could not start. <a href="experience-v4.html?v=20261008-steady4" style="color:white">Open the rendered experience →</a></p>';
     }
   }),
 );

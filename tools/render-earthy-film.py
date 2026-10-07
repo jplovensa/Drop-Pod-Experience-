@@ -45,19 +45,39 @@ def concatenate(clips, target, listing):
             "-c", "copy", "-movflags", "+faststart", str(target)])
 
 
-def animate_still(path, duration, target, earthy=False, reverse=False):
+def render_still(path, duration, target, earthy=False):
     frames = round(duration * 24)
-    # Remove the damaged top strip, then preserve aspect ratio with a 16:9 crop.
+    # Fixed framing removes integer crop steps from the former zoom animation.
     crop = "crop=iw:trunc(ih*0.748/2)*2:0:ih-oh," if earthy else ""
-    zoom = f"1.10-0.07*on/{frames}" if reverse else f"1.025+0.075*on/{frames}"
     filters = (
-        f"{crop}scale=1920:1080:force_original_aspect_ratio=increase,"
-        f"crop=1920:1080,zoompan=z='{zoom}':x='iw/2-iw/zoom/2':"
-        f"y='ih/2-ih/zoom/2':d={frames}:s=1280x720:fps=24,"
-        "setsar=1,format=yuv420p"
+        f"{crop}scale=1280:720:force_original_aspect_ratio=increase,"
+        "crop=1280:720,setsar=1,format=yuv420p"
     )
-    ffmpeg(["-threads", "2", "-filter_threads", "1", "-i", str(path),
-            "-vf", filters, "-frames:v", str(frames), *ENCODE, str(target)])
+    ffmpeg(["-threads", "2", "-filter_threads", "1", "-loop", "1",
+            "-framerate", "24", "-i", str(path), "-vf", filters,
+            "-frames:v", str(frames), *ENCODE, str(target)])
+
+
+def dissolve_shots(shots, target, duration):
+    fade_frames = 12
+    shot_frames = (round(duration * 24) + fade_frames * (len(shots) - 1)) // len(shots)
+    inputs = []
+    for shot in shots:
+        inputs.extend(["-i", str(shot)])
+    filters = []
+    for index in range(len(shots)):
+        filters.append(f"[{index}:v]setpts=PTS-STARTPTS,fps=24[v{index}]")
+    previous = "v0"
+    for index in range(1, len(shots)):
+        offset = index * (shot_frames - fade_frames) / 24
+        output = f"mix{index}"
+        filters.append(f"[{previous}][v{index}]xfade=transition=fade:"
+                       f"duration={fade_frames / 24}:offset={offset},fps=24[{output}]")
+        previous = output
+    ffmpeg(["-threads", "2", "-filter_complex_threads", "1", *inputs,
+            "-filter_complex", ";".join(filters), "-map", f"[{previous}]",
+            "-t", str(duration), "-r", "24", *ENCODE,
+            "-movflags", "+faststart", str(target)])
 
 
 def render_chapter(item, temporary):
@@ -68,11 +88,11 @@ def render_chapter(item, temporary):
         shots = []
         for shot_index, view in enumerate(views):
             shot = temporary / f"shot-{index}-{shot_index}.mp4"
-            animate_still(ROOT / f"assets/earthy-luxe/v{view}.webp",
-                          duration / len(views), shot, earthy=True,
-                          reverse=shot_index % 2 == 1)
+            shot_duration = (round(duration * 24) + 12 * (len(views) - 1)) / len(views) / 24
+            render_still(ROOT / f"assets/earthy-luxe/v{view}.webp",
+                         shot_duration, shot, earthy=True)
             shots.append(shot)
-        concatenate(shots, target, temporary / f"shots-{index}.txt")
+        dissolve_shots(shots, target, duration)
     elif source.endswith(".mp4"):
         ffmpeg(["-threads", "2", "-filter_threads", "1", "-stream_loop", "-1",
                 "-i", str(ROOT / source), "-t", str(duration), "-vf",
@@ -80,7 +100,7 @@ def render_chapter(item, temporary):
                 "crop=1280:720,fps=24,setsar=1,format=yuv420p",
                 *ENCODE, str(target)])
     else:
-        animate_still(ROOT / source, duration, target)
+        render_still(ROOT / source, duration, target)
     print(f"Rendered {index + 1:02d}: {title}", flush=True)
     return target
 
@@ -92,10 +112,10 @@ def main():
         with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
             clips = list(pool.map(lambda item: render_chapter(item, temporary),
                                   enumerate(CHAPTERS)))
-        film = FILM_DIR / "earthy-luxe-cinematic-v3.mp4"
+        film = FILM_DIR / "earthy-luxe-cinematic-v4.mp4"
         concatenate(clips, film, temporary / "chapters.txt")
         for index, name in [(4, "entry"), (5, "suite")]:
-            shutil.copyfile(clips[index], FILM_DIR / f"{name}-v3.mp4")
+            shutil.copyfile(clips[index], FILM_DIR / f"{name}-v4.mp4")
 
     manifest = []
     start = 0
