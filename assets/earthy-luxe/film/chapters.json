@@ -1,0 +1,107 @@
+{
+  "duration": 152,
+  "chapters": [
+    {
+      "title": "The Destination Collection",
+      "start": 0,
+      "duration": 12,
+      "source": "assets/destination-collection.mp4"
+    },
+    {
+      "title": "Beachfront Placement",
+      "start": 12,
+      "duration": 12,
+      "source": "assets/beachfront.mp4"
+    },
+    {
+      "title": "Life on the Veranda",
+      "start": 24,
+      "duration": 7,
+      "source": "assets/pod-hero.jpg"
+    },
+    {
+      "title": "The Approach",
+      "start": 31,
+      "duration": 12,
+      "source": "assets/exterior-pods.mp4"
+    },
+    {
+      "title": "Veranda to Entrance",
+      "start": 43,
+      "duration": 12,
+      "source": "el:8,10,1"
+    },
+    {
+      "title": "The Suite Reveal",
+      "start": 55,
+      "duration": 12,
+      "source": "el:2,1,5"
+    },
+    {
+      "title": "Inside the Pod",
+      "start": 67,
+      "duration": 15,
+      "source": "el:1"
+    },
+    {
+      "title": "Facade",
+      "start": 82,
+      "duration": 7,
+      "source": "el:10"
+    },
+    {
+      "title": "Terrace Lounge",
+      "start": 89,
+      "duration": 7,
+      "source": "el:8"
+    },
+    {
+      "title": "Alfresco Dining",
+      "start": 96,
+      "duration": 7,
+      "source": "el:9"
+    },
+    {
+      "title": "The Living Wall",
+      "start": 103,
+      "duration": 7,
+      "source": "el:2"
+    },
+    {
+      "title": "The Open Suite",
+      "start": 110,
+      "duration": 7,
+      "source": "el:1"
+    },
+    {
+      "title": "The Kitchen",
+      "start": 117,
+      "duration": 7,
+      "source": "el:4"
+    },
+    {
+      "title": "Culinary Detail",
+      "start": 124,
+      "duration": 7,
+      "source": "el:3"
+    },
+    {
+      "title": "Dressing Gallery",
+      "start": 131,
+      "duration": 7,
+      "source": "el:7"
+    },
+    {
+      "title": "The Sleeping Suite",
+      "start": 138,
+      "duration": 7,
+      "source": "el:5"
+    },
+    {
+      "title": "Morning Light",
+      "start": 145,
+      "duration": 7,
+      "source": "el:6"
+    }
+  ]
+}

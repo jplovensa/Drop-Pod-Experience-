@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <link rel="stylesheet" href="styles/fonts.css" />
+    <link rel="stylesheet" href="styles/earthy-crop.css?v=20261007-film3" />
+    <script
+      src="scripts/interior-palettes.js?v=20261007-film3"
+      defer
+    ></script>
+    <meta name="walkthrough-version" content="20261007-film3" />
+    <title>FJÄLL GROUP — Drop Pod Villas · Client Walkthrough</title>
+
+    <link rel="stylesheet" href="styles/experience.css?v=20261007-film3" />
+  </head>
+  <body class="film hidden-chrome">
+    <div id="stage"></div>
+    <div class="veil"></div>
+    <div class="vignette"></div>
+
+    <div class="hud">
+      <div class="reticle"><i></i></div>
+      <div class="compass">
+        <div class="tape" id="tape"></div>
+        <div class="needle"></div>
+      </div>
+      <div class="coords">
+        LOOK <b id="coordX">+000.0°</b> · <b id="coordY">+000.0°</b>
+      </div>
+      <div class="look-hint" id="lookHint">Drag to look around</div>
+    </div>
+    <div class="badge360" id="badge360">360°</div>
+
+    <header class="chrome">
+      <div class="brand">
+        <img src="assets/fjall-logo.png" alt="FJÄLL GROUP" />
+        <span class="div"></span>
+        <a class="sub" href="index.html">← Development showcase</a>
+      </div>
+      <div class="meta">
+        Interactive Concept Presentation<br />
+        <b>Three Material Worlds</b> · One Architecture
+      </div>
+    </header>
+
+    <div id="caption" class="chrome">
+      <div class="cap-anim" id="capInner">
+        <div class="no" id="capNo">01 — 17</div>
+        <div class="title" id="capTitle">Beachfront Placement</div>
+        <div class="desc" id="capDesc"></div>
+      </div>
+    </div>
+
+    <div id="counter" class="chrome">
+      <span class="cur" id="counterCur">01</span>/ 17
+    </div>
+
+    <footer class="chrome">
+      <div class="transport">
+        <button class="tbtn" id="btnPrev" aria-label="Previous scene">
+          <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" /></svg>
+        </button>
+        <button class="tbtn" id="btnPlay" aria-label="Play or pause">
+          <svg viewBox="0 0 24 24" id="icoPause">
+            <path class="fill" d="M8 5h2.6v14H8zM13.4 5H16v14h-2.6z" />
+          </svg>
+          <svg viewBox="0 0 24 24" id="icoPlay" style="display: none">
+            <path class="fill" d="M8 5l11 7-11 7z" />
+          </svg>
+        </button>
+        <button class="tbtn" id="btnNext" aria-label="Next scene">
+          <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" /></svg>
+        </button>
+        <button class="tbtn" id="btnFull" aria-label="Fullscreen">
+          <svg viewBox="0 0 24 24">
+            <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" />
+          </svg>
+        </button>
+        <button
+          class="tbtn"
+          id="btnMotion"
+          aria-label="Enable motion look"
+          style="display: none"
+        >
+          <svg viewBox="0 0 24 24">
+            <rect x="7" y="2.5" width="10" height="19" rx="2.5" />
+            <path d="M11 18.5h2" />
+          </svg>
+        </button>
+      </div>
+
+      <div id="segments"></div>
+
+      <div class="ctrl-col">
+        <div class="switch-label">View — <em id="modeName">Film</em></div>
+        <div class="switch mode" id="modeSwitch">
+          <button id="mdFilm" class="on">Film</button>
+          <button id="mdExplore">Explore VR</button>
+        </div>
+        <div class="switch-label">
+          Material World — <em id="styleName">Modern Mediterranean</em>
+        </div>
+        <div class="switch" id="styleSwitch">
+          <button id="swMed" class="on">Mediterranean</button>
+          <button id="swWo">Warm Organic</button
+          ><button id="swEl">Earthy Luxe</button>
+        </div>
+      </div>
+    </footer>
+
+    <div id="endcard">
+      <img src="assets/fjall-logo.png" alt="FJÄLL GROUP" />
+      <h2>Ready to Build.</h2>
+      <p>
+        Drop Pod Villas · Rapid deployment. Uncompromising luxury.<br />
+        Commercial Office Jakarta · Bali HQ · www.fjällgroup.com
+      </p>
+      <button id="replay">Replay the Experience</button>
+      <a class="film-download" href="assets/earthy-luxe/film/earthy-luxe-cinematic-v3.mp4" download>Download Earthy Luxe film · 2:32</a>
+    </div>
+
+    <div id="intro">
+      <video
+        class="bg"
+        src="assets/destination-collection.mp4"
+        poster="assets/destination-collection.jpg"
+        muted
+        loop
+        autoplay
+        playsinline
+      ></video>
+      <div class="scrim"></div>
+      <img
+        class="logo i-anim d1"
+        src="assets/fjall-logo-large.png"
+        alt="FJÄLL GROUP"
+      />
+      <div class="kicker i-anim d2">Interactive Concept Presentation</div>
+      <h1>
+        <span class="i-anim d2">Drop Pod</span>
+        <span class="i-anim d3">Villas</span>
+      </h1>
+      <div class="tag i-anim d4">Rapid deployment. Uncompromising luxury.</div>
+      <div class="modes i-anim d4">
+        <div><b>Film</b> — cinematic walkthrough</div>
+        <div><b>Explore VR</b> — drag to look around</div>
+        <div><b>360° Suite</b> — full panoramic view</div>
+        <div>
+          <b>Three Worlds</b> — Mediterranean · Warm Organic · Earthy Luxe
+        </div>
+      </div>
+      <button id="begin" class="i-anim d5">Enter the Experience</button>
+      <div class="hint i-anim d5">
+        Space — play / pause · ← → — scenes · V — film / explore · M / W —
+        material world · F — fullscreen
+      </div>
+    </div>
+
+    <script src="scripts/experience-player-v3.js" defer></script>
+  </body>
+</html>

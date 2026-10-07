@@ -896,3 +896,20 @@ a:focus-visible {
     letter-spacing: 0.08em;
   }
 }
+
+/* Rendered Earthy Luxe film shares the stage with the existing palettes. */
+.earthy-cinematic {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+}
+.earthy-cinematic.show { display: block; }
+#endcard .film-download {
+  display: block;
+  margin-top: 20px;
+  color: var(--bone);
+  font-size: 13px;
+}

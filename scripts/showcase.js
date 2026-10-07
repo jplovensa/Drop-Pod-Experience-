@@ -50,7 +50,7 @@ document.querySelectorAll("[data-palette]").forEach((button) =>
     const key = button.dataset.palette,
       world = worlds[key];
     openDesign(
-      `<h2 id="modal-title">${world.title}</h2><img src="${window.interiorImage("suite", key)}" alt="${world.title} suite"><p>${world.description}</p><div class="swatches">${world.swatches.map(([name, color]) => `<div class="swatch"><i style="background:${color}"></i><span>${name}</span></div>`).join("")}</div><p class="status">Concept color references. Final material specifications are selected for each project.</p><a class="button" href="experience.html?style=${key}&v=20261007-sequence2">Walk through this palette →</a>`,
+      `<h2 id="modal-title">${world.title}</h2><img src="${window.interiorImage("suite", key)}" alt="${world.title} suite"><p>${world.description}</p><div class="swatches">${world.swatches.map(([name, color]) => `<div class="swatch"><i style="background:${color}"></i><span>${name}</span></div>`).join("")}</div><p class="status">Concept color references. Final material specifications are selected for each project.</p><a class="button" href="experience-v3.html?style=${key}&v=20261007-film3">Walk through this palette →</a>`,
     );
   }),
 );
@@ -263,7 +263,7 @@ function openEarthyView(index) {
   const views = window.EARTHY_LUXE_VIEWS;
   const item = views[(index + views.length) % views.length];
   openDesign(
-    `<h2 id="modal-title">Earthy Luxe / ${item.title}</h2><img src="assets/earthy-luxe/v${item.view}.webp" alt="Earthy Luxe ${item.title}"><p>${worlds.el.description}</p><div class="form-actions"><button class="button" id="el-prev">← Previous</button><span>${index + 1} / ${views.length}</span><button class="button" id="el-next">Next →</button><a href="assets/earthy-luxe/v${item.view}.webp" download>Download view ↓</a></div><p class="status">Supplied perspective render · Earthy Luxe collection</p><a class="button" href="experience.html?style=el&v=20261007-sequence2">Open the Earthy Luxe experience →</a>`,
+    `<h2 id="modal-title">Earthy Luxe / ${item.title}</h2><img src="assets/earthy-luxe/v${item.view}.webp" alt="Earthy Luxe ${item.title}"><p>${worlds.el.description}</p><div class="form-actions"><button class="button" id="el-prev">← Previous</button><span>${index + 1} / ${views.length}</span><button class="button" id="el-next">Next →</button><a href="assets/earthy-luxe/v${item.view}.webp" download>Download view ↓</a></div><p class="status">Supplied perspective render · Earthy Luxe collection</p><a class="button" href="experience-v3.html?style=el&v=20261007-film3">Open the Earthy Luxe experience →</a>`,
   );
   document
     .querySelector("#el-prev")

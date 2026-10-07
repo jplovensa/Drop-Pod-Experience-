@@ -15,7 +15,7 @@ Open the served `index.html` in a browser. No build step or package installation
 ## Structure
 
 - `index.html`: project overview, material preferences, review notes, and resources.
-- `experience.html`: the original cinematic and panoramic walkthrough.
+- `experience-v3.html`: the current cinematic and panoramic walkthrough (`experience.html` remains compatible).
 - `styles/`: responsive portal and walkthrough styles.
 - `scripts/`: portal review state and walkthrough controls.
 - `assets/`: images and videos from the supplied project archive.
@@ -26,7 +26,7 @@ Compare three material palettes, save a preference, explore the villa, and recor
 
 All interactions run in the browser, with local preferences and downloadable briefs. No backend or account is required. Concept selection is a design preference.
 
-The walkthrough includes keyboard navigation (Space, arrows, V, M/W, F), drag exploration, and a WebGL panoramic suite. Panorama rendering requires browser WebGL support. The walkthrough optionally loads Inter from Google Fonts and falls back to system fonts.
+The walkthrough includes keyboard navigation (Space, arrows, V, M/W, F), drag exploration, and a WebGL panoramic suite. Panorama rendering requires browser WebGL support. The walkthrough uses locally hosted Inter and falls back to system fonts.
 
 ## Validation
 
@@ -48,4 +48,14 @@ All ten supplied Earthy Luxe views are retained as optimized WebP assets under `
 
 The ten supplied Earthy Luxe exports contain a corrupted repeated gray strip in their top quarter. `earthy-crop.css` and the shared palette script exclude that area from portal and cinematic presentation without modifying source assets. Palette switching removes the crop wrapper when another collection is selected. Downloads retain the source file.
 
-Walkthrough entry links and player assets include a release query (`20261007-sequence2`) so a new page can load the current player independently of older cached URLs. The page also exposes a matching `walkthrough-version` meta tag for deployment verification. Update these together when publishing player fixes.
+### Rendered Earthy Luxe film
+
+Earthy Luxe Film mode plays `assets/earthy-luxe/film/earthy-luxe-cinematic-v3.mp4`: a silent 152-second H.264 film, 1280×720 at 24 fps. The 17 chapters follow the Mediterranean and Warm Organic order. Destination, beachfront and approach use shared architectural footage. Entrance and suite reveal are new three-shot sequences; the remaining Earthy Luxe chapters animate the supplied perspective views with gentle camera movement. These animations do not replace a continuous 3D walkthrough rendered from the original model. The corrupt top strip is excluded from the rendered footage.
+
+Chapter captions, progress, pause/resume and seeking follow the actual video playback clock, including when buffering. `chapters.json` records exact start times and source views. Explore mode uses separate Earthy Luxe entrance/suite clips and cropped perspective references. The end card includes a film download.
+
+Regenerate the film with `python3 tools/render-earthy-film.py` (requires FFmpeg with libx264 and Python 3). Sources are unchanged; outputs are under `assets/earthy-luxe/film/`.
+
+Portal links use the fresh `experience-v3.html` entry and `scripts/experience-player-v3.js` filename to avoid earlier cached page/player URLs. `experience.html` also loads this player; `scripts/experience.js` is a compatibility loader for older bookmarks. The page exposes release `20261007-film3` in its `walkthrough-version` meta tag. Keep both HTML entries identical when publishing updates.
+
+Browser regression: with Playwright installed and an HTTP server that supports byte ranges, run `BASE_URL=http://localhost:3001 node tests/earthy-film.cjs`. Set `PLAYWRIGHT_MODULE` if Playwright lives outside the project. The check decodes the film, navigates all 17 chapters, crosses their boundaries, and exercises transport, palette changes, Explore mode, replay and mobile width.
