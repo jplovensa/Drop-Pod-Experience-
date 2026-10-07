@@ -184,12 +184,17 @@ SCENES.forEach((s, i) => {
       look.appendChild(img);
     }
   }
-  const earthyImage = document.createElement("img");
-  earthyImage.src = window.interiorImage(s.key, "el");
-  earthyImage.dataset.style = "el";
-  earthyImage.alt = `Earthy Luxe — ${s.title}`;
-  earthyImage.draggable = false;
-  look.appendChild(earthyImage);
+  // Shared films and the exterior hero belong to every palette.
+  // Earthy Luxe replaces interior stills only; its perspective reference
+  // stands in for the panorama chapter without claiming to be a panorama.
+  if (!s.video && !s.single) {
+    const earthyImage = document.createElement("img");
+    earthyImage.src = window.interiorImage(s.pano ? "suite" : s.key, "el");
+    earthyImage.dataset.style = "el";
+    earthyImage.alt = `Earthy Luxe — ${s.title}`;
+    earthyImage.draggable = false;
+    look.appendChild(earthyImage);
+  }
   sc.appendChild(look);
   stage.appendChild(sc);
 
@@ -617,7 +622,8 @@ function show(i, { reset = true } = {}) {
   mediaOf(i).forEach((m) => {
     const on =
       m.dataset.style === style ||
-      (m.dataset.style === "both" && style !== "el");
+      (m.dataset.style === "both" &&
+        (m.tagName !== "CANVAS" || style !== "el"));
     m.classList.toggle("show", on);
     m.classList.remove("kb-a", "kb-b", "kb-c");
     if (on && m.tagName === "IMG") {
@@ -639,14 +645,20 @@ function show(i, { reset = true } = {}) {
     s.querySelector(".fill").style.width = idx < i ? "100%" : "0";
   });
   capNo.textContent = `${String(i + 1).padStart(2, "0")} — ${String(SCENES.length).padStart(2, "0")}`;
-  const earthyView =
-    window.EARTHY_LUXE_VIEWS.find((view) => view.key === SCENES[i].key) ||
-    window.EARTHY_LUXE_VIEWS[0];
-  capTitle.textContent = style === "el" ? earthyView.title : SCENES[i].title;
-  capDesc.textContent =
-    style === "el"
-      ? "Earthy Luxe · Warm oak, veined stone, layered linen and dark accents. Supplied perspective design render."
-      : SCENES[i].desc;
+  capTitle.textContent = SCENES[i].title;
+  if (style === "el" && SCENES[i].pano) {
+    capDesc.textContent =
+      "Earthy Luxe suite reference — drag to inspect the supplied perspective render. A 360° image is not supplied for this palette.";
+  } else if (style === "el" && !SCENES[i].video && !SCENES[i].single) {
+    capDesc.textContent =
+      "Earthy Luxe · Warm oak, veined stone, layered linen and dark accents. Supplied perspective design render.";
+  } else {
+    capDesc.textContent =
+      SCENES[i].desc +
+      (style === "el" && SCENES[i].video
+        ? " Shared architectural film; Earthy Luxe reference views follow."
+        : "");
+  }
   counterCur.textContent = String(i + 1).padStart(2, "0");
   capInner.classList.remove("cap-anim");
   void capInner.offsetWidth;
@@ -831,10 +843,7 @@ function start() {
   if (iv) iv.pause();
   const requestedStyle = new URLSearchParams(location.search).get("style");
   if (window.INTERIOR_PALETTES[requestedStyle]) setStyle(requestedStyle);
-  cur =
-    requestedStyle === "el"
-      ? SCENES.findIndex((scene) => scene.key === "suite")
-      : 0;
+  cur = 0;
   show(cur);
   play();
 }
